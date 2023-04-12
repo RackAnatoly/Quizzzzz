@@ -21,6 +21,7 @@ const OptionsButton = ({
   return (
     // <Pressable style={[styles.button, customStyle]}>
     <Pressable
+      onPress={onPress}
       style={({ pressed }) => {
         return [
           styles.button,

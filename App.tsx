@@ -1,25 +1,19 @@
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import OptionsButton from "./src/components/OptionsButton";
 import { COLORS } from "./src/components/colors";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import StudyScreen from "./src/screens/StudyScreen";
+import DayQuestion from "./src/screens/DayQuestion";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
-    <SafeAreaView style={styles.container}>
-      <OptionsButton optionButtonType="day" title="Question of the Day" />
-      <OptionsButton optionButtonType="day" title="Quick 10 Quiz" />
-      <OptionsButton optionButtonType="day" title="Timed Quiz" />
-      <OptionsButton optionButtonType="day" title="Missed Questions Quiz" />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Study" component={StudyScreen} />
+        <Stack.Screen name="DayQuestion" component={DayQuestion} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.PINK,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20
-  }
-});
