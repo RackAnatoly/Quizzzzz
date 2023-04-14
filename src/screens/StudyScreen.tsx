@@ -5,18 +5,18 @@ import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
 
 const StudyScreen = ({ navigation }) => {
-  const dayQuestion = () => {
-    navigation.navigate("DayQuestion");
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <OptionsButton
         optionButtonType="main"
         title="Question of the Day"
-        onPress={dayQuestion}
+        onPress={() => navigation.navigate("DayQuestion")}
       />
-      <OptionsButton optionButtonType="main" title="Quick 10 Quiz" />
+      <OptionsButton
+        optionButtonType="main"
+        title="Quick 10 Quiz"
+        onPress={() => navigation.navigate("10_questions")}
+      />
       <OptionsButton optionButtonType="main" title="Timed Quiz" />
       <OptionsButton optionButtonType="main" title="Missed Questions Quiz" />
     </SafeAreaView>
