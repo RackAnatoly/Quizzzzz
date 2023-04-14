@@ -4,7 +4,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { COLORS } from "./colors";
 
 type OptionButtonType = {
-  optionButtonType: "day" | "quick" | "timed" | "missed";
+  optionButtonType: "main";
   title?: string;
   customStyle?: StyleProp<ViewStyle>;
   isDisabled?: boolean;
@@ -25,7 +25,7 @@ const OptionsButton = ({
       style={({ pressed }) => {
         return [
           styles.button,
-          pressed && styles[`${optionButtonType}Pressed`],
+          //pressed && styles[`${optionButtonType}Pressed`],
           customStyle
         ];
       }}
@@ -36,7 +36,9 @@ const OptionsButton = ({
       ) : (
         <Typography color={COLORS.WHITE}>{title}</Typography>
       )} */}
-      <Text style={{ fontSize: 16 }}>{title}</Text>
+      <Text style={{ fontSize: 20, color: COLORS.WHITE, fontWeight: "700" }}>
+        {title}
+      </Text>
     </Pressable>
   );
 };
@@ -45,7 +47,7 @@ export default OptionsButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: COLORS.GREY,
+    backgroundColor: COLORS.BLACK,
     width: 320,
     height: 79,
     borderRadius: 12,
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 10
   },
-  dayPressed: {
+  mainPressed: {
     backgroundColor: "red"
   }
 });

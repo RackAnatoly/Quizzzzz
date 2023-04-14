@@ -42,7 +42,16 @@ const DayQuestion = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    // <SafeAreaView style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.WHITE,
+        alignItems: "center",
+        justifyContent: "space-around",
+        paddingHorizontal: 20
+      }}
+    >
       <View style={styles.question}>
         <Text style={{ fontSize: 24 }}>{questions}</Text>
       </View>
@@ -88,7 +97,8 @@ const DayQuestion = () => {
           Continue
         </Text>
       </Pressable> */}
-    </SafeAreaView>
+    </View>
+    // </SafeAreaView>
   );
 };
 
@@ -97,10 +107,10 @@ export default DayQuestion;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.WHITE,
-    alignItems: "center",
-    justifyContent: "space-around",
-    paddingHorizontal: 20
+    backgroundColor: COLORS.WHITE
+    // alignItems: "center",
+    // justifyContent: "space-around",
+    // paddingHorizontal: 20
   },
   question: {
     width: "100%",

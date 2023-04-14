@@ -12,13 +12,13 @@ const StudyScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <OptionsButton
-        optionButtonType="day"
+        optionButtonType="main"
         title="Question of the Day"
         onPress={dayQuestion}
       />
-      <OptionsButton optionButtonType="day" title="Quick 10 Quiz" />
-      <OptionsButton optionButtonType="day" title="Timed Quiz" />
-      <OptionsButton optionButtonType="day" title="Missed Questions Quiz" />
+      <OptionsButton optionButtonType="main" title="Quick 10 Quiz" />
+      <OptionsButton optionButtonType="main" title="Timed Quiz" />
+      <OptionsButton optionButtonType="main" title="Missed Questions Quiz" />
     </SafeAreaView>
   );
 };
@@ -28,7 +28,7 @@ export default StudyScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.PINK,
+    backgroundColor: COLORS.WHITE,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20
