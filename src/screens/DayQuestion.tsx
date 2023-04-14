@@ -53,7 +53,7 @@ const DayQuestion = () => {
       }}
     >
       <View style={styles.question}>
-        <Text style={{ fontSize: 24 }}>{questions}</Text>
+        <Text style={{ fontSize: 24, textAlign: "center" }}>{questions}</Text>
       </View>
       {options
         .sort(() => Math.random() - 0.5)
