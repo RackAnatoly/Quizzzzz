@@ -14,7 +14,9 @@ import { COLORS } from "../components/colors";
 const DayQuestion = () => {
   const [questions, setQuestions] = useState(null);
   const [answer, setAnswer] = useState(null);
+  const [explanation, setExplanation] = useState(null);
   const [options, setOptions] = useState([]);
+  const [isExplanationShown, setIsExplanationShown] = useState(false);
 
   useEffect(() => {
     fetch("http://vmwarewalkthroughs.com/api/questions", {
@@ -29,6 +31,7 @@ const DayQuestion = () => {
       .then((data) => {
         setQuestions(data[0].question);
         setAnswer(data[0].answer);
+        setExplanation(data[0].explanation);
         const randomOptions = [];
         randomOptions.push(
           data[0].answer,
@@ -53,7 +56,13 @@ const DayQuestion = () => {
       }}
     >
       <View style={styles.question}>
-        <Text style={{ fontSize: 24, textAlign: "center" }}>{questions}</Text>
+        <Text style={{ fontSize: 24, textAlign: "center" }}>'{questions}'</Text>
+        {isExplanationShown && <Text>{explanation}</Text>}
+        <Pressable onPress={() => setIsExplanationShown(!isExplanationShown)}>
+          <Text style={{ fontSize: 12, padding: 20 }}>
+            {isExplanationShown ? "Hide Explanation" : "Show explanation"}
+          </Text>
+        </Pressable>
       </View>
       {options
         .sort(() => Math.random() - 0.5)
@@ -64,18 +73,23 @@ const DayQuestion = () => {
                 {
                   width: "100%",
                   height: 72,
-                  borderColor: COLORS.YELLOW,
+                  //borderColor: COLORS.YELLOW,
                   borderWidth: 1,
                   borderRadius: 15,
                   alignItems: "center",
                   justifyContent: "space-around",
                   paddingHorizontal: 5,
-                  marginVertical: 10
-                },
-                pressed && {
-                  backgroundColor:
-                    i === answer ? COLORS.LIGHT_GREEN : COLORS.PINK
+                  marginVertical: 10,
+                  backgroundColor: pressed
+                    ? i === answer
+                      ? COLORS.LIGHT_GREEN
+                      : COLORS.PINK
+                    : undefined
                 }
+                // pressed && {
+                //   backgroundColor:
+                //     i === answer ? COLORS.LIGHT_GREEN : COLORS.PINK
+                // }
               ];
             }}
           >
@@ -107,19 +121,19 @@ export default DayQuestion;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: COLORS.WHITE
+    // flex: 1,
+    // backgroundColor: COLORS.WHITE
     // alignItems: "center",
     // justifyContent: "space-around",
     // paddingHorizontal: 20
   },
   question: {
     width: "100%",
-    height: 200,
+    minHeight: 200,
     backgroundColor: COLORS.YELLOW,
     borderRadius: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    //alignItems: "center",
+    justifyContent: "space-around",
     paddingHorizontal: 10
   }
 });
