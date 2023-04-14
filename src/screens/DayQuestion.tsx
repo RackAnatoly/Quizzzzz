@@ -48,7 +48,7 @@ const DayQuestion = () => {
         flex: 1,
         backgroundColor: COLORS.WHITE,
         alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "center",
         paddingHorizontal: 20
       }}
     >
@@ -69,7 +69,8 @@ const DayQuestion = () => {
                   borderRadius: 15,
                   alignItems: "center",
                   justifyContent: "space-around",
-                  paddingHorizontal: 5
+                  paddingHorizontal: 5,
+                  marginVertical: 10
                 },
                 pressed && {
                   backgroundColor:
@@ -81,7 +82,7 @@ const DayQuestion = () => {
             <Text style={{ fontSize: 16 }}> {i}</Text>
           </Pressable>
         ))}
-      {/* <Pressable
+      <Pressable
         style={{
           width: "100%",
           height: 72,
@@ -96,7 +97,7 @@ const DayQuestion = () => {
           {" "}
           Continue
         </Text>
-      </Pressable> */}
+      </Pressable>
     </View>
     // </SafeAreaView>
   );
