@@ -1,4 +1,9 @@
 export const COLORS = {
-  PINK: "#CCB5EA",
-  GREY: "#D9D9D9"
+  PUPRLE: "#CCB5EA",
+  GREY: "#D9D9D9",
+  WHITE: "#FFFFFF",
+  YELLOW: "#F4DB60",
+  LIGHT_GREEN: "#9BC869",
+  PINK: "#FB8D76",
+  BLACK: "#2B2B28"
 };
