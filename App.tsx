@@ -8,10 +8,12 @@ import DayQuestion from "./src/screens/DayQuestion";
 import { InitialScreen } from "./src/screens/InitialScreen";
 import { Ten_questions } from "./src/screens/Ten_questions";
 import { Results } from "./src/screens/Results";
+import { SafeAreaView } from "react-native";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
+    //<SafeAreaView>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Initial" component={InitialScreen} />
@@ -21,5 +23,6 @@ export default function App() {
         <Stack.Screen name="Results" component={Results} />
       </Stack.Navigator>
     </NavigationContainer>
+    //</SafeAreaView>
   );
 }

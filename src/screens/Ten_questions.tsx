@@ -4,12 +4,14 @@ import {
   Alert,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   View
 } from "react-native";
 import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
+import { styles } from "./styles";
 
 const questions = [
   {
@@ -149,94 +151,160 @@ export const Ten_questions = ({ navigation }) => {
   }, [index]);
 
   return (
-    <SafeAreaView>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: 10
-        }}
-      >
-        <Text>Quiz Challenge</Text>
-        <Pressable
-          style={{ padding: 10, backgroundColor: "magenta", borderRadius: 20 }}
-        >
-          <Text
-            style={{ color: "white", textAlign: "center", fontWeight: "bold" }}
-          >
-            {counter}
-          </Text>
-        </Pressable>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginHorizontal: 10
-        }}
-      >
-        <Text>Your Progress</Text>
+    <View style={styles.container}>
+      <View style={styles.menuBarContainer}>
+        <Text>Quit</Text>
+        <Text>{counter}</Text>
         <Text>
-          ({index}/{totalQuestions}) questions answered
+          {index}/{totalQuestions}
         </Text>
+        <Text>Mark</Text>
       </View>
+
       {/* Progress Bar */}
-      <View
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          flexDirection: "row",
-          alignItems: "center",
-          height: 10,
-          borderRadius: 20,
-          justifyContent: "center",
-          marginTop: 20,
-          marginLeft: 10
-        }}
-      >
+      <View style={styles.progressBarContainer}>
         <Text
-          style={{
-            backgroundColor: "#FFC0CB",
-            borderRadius: 12,
-            position: "absolute",
-            left: 0,
-            height: 10,
-            right: 0,
-            width: `${progressPercentage}%`,
-            marginTop: 20
-          }}
+          style={[styles.progressStatus, { width: `${progressPercentage}%` }]}
         />
       </View>
-      <Pressable
-        style={{
-          width: "100%",
-          height: 72,
-          backgroundColor: COLORS.BLACK,
-          borderWidth: 1,
-          borderRadius: 15,
-          alignItems: "center",
-          justifyContent: "space-around"
-        }}
-      >
-        <Text style={{ fontSize: 16, color: COLORS.WHITE, fontWeight: "bold" }}>
-          Continue
-        </Text>
-      </Pressable>
-    </SafeAreaView>
+      <ScrollView>
+        {/* question */}
+        <View style={styles.questionContainer}>
+          <Text style={styles.question}>{currentQuestion?.question}</Text>
+        </View>
+        {/* Answers */}
+        <View style={{ marginTop: 10 }}>
+          <View>
+            {currentQuestion?.options.map((item, index) => (
+              <Pressable
+                onPress={() =>
+                  selectedAnswerIndex === null && setSelectedAnswerIndex(index)
+                }
+                style={
+                  selectedAnswerIndex === index &&
+                  index === currentQuestion.correctAnswerIndex
+                    ? {
+                        // correct answer
+                        height: 72,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginVertical: 10,
+                        backgroundColor: COLORS.LIGHT_GREEN,
+                        borderRadius: 15
+                      }
+                    : selectedAnswerIndex != null &&
+                      selectedAnswerIndex === index
+                    ? {
+                        // WRONG ANSWER
+                        height: 72,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginVertical: 10,
+                        backgroundColor: COLORS.PINK,
+                        borderRadius: 15
+                      }
+                    : {
+                        height: 72,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderWidth: 1,
+                        borderColor: COLORS.YELLOW,
+                        marginVertical: 10,
+                        borderRadius: 15
+                      }
+                }
+              >
+                <Text style={{ fontSize: 16, fontWeight: "500" }}>
+                  {item.answer}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+
+        {/* CONTINUE */}
+        <View style={answerStatus === null ? null : {}}>
+          {answerStatus === null ? null : (
+            <Text
+              style={
+                answerStatus == null
+                  ? null
+                  : { fontSize: 17, textAlign: "center", fontWeight: "bold" }
+              }
+            >
+              {!!answerStatus ? "Correct Answer" : "Wrong Answer"}
+            </Text>
+          )}
+
+          {index + 1 >= questions.length ? (
+            <Pressable
+              onPress={() =>
+                navigation.navigate("Results", {
+                  points: points,
+                  answers: answers
+                })
+              }
+              style={{
+                width: "100%",
+                height: 72,
+                backgroundColor: COLORS.BLACK,
+                borderWidth: 1,
+                borderRadius: 15,
+                alignItems: "center",
+                justifyContent: "space-around"
+              }}
+            >
+              <Text style={{ color: "white" }}>Done</Text>
+            </Pressable>
+          ) : answerStatus === null ? null : (
+            <Pressable
+              onPress={() => setIndex(index + 1)}
+              style={{
+                width: "100%",
+                height: 72,
+                backgroundColor: COLORS.BLACK,
+                borderWidth: 1,
+                borderRadius: 15,
+                alignItems: "center",
+                justifyContent: "space-around"
+              }}
+            >
+              <Text style={{ color: "white" }}>Continue</Text>
+            </Pressable>
+          )}
+        </View>
+
+        {/* <Pressable
+          style={{
+            width: "100%",
+            height: 72,
+            backgroundColor: COLORS.BLACK,
+            borderWidth: 1,
+            borderRadius: 15,
+            alignItems: "center",
+            justifyContent: "space-around"
+          }}
+        >
+          <Text
+            style={{ fontSize: 16, color: COLORS.WHITE, fontWeight: "bold" }}
+          >
+            Continue
+          </Text>
+        </Pressable> */}
+      </ScrollView>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {},
-  question: {
-    width: "100%",
-    minHeight: 200,
-    backgroundColor: COLORS.YELLOW,
-    borderRadius: 15,
-    //alignItems: "center",
-    justifyContent: "space-around",
-    paddingHorizontal: 10
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {},
+//   question: {
+//     width: "100%",
+//     minHeight: 200,
+//     backgroundColor: COLORS.YELLOW,
+//     borderRadius: 15,
+//     //alignItems: "center",
+//     justifyContent: "space-around",
+//     paddingHorizontal: 10
+//   }
+// });
