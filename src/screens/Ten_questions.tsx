@@ -65,6 +65,32 @@ const questions = [
       }
     ],
     correctAnswerIndex: 0
+  },
+  {
+    question: "Which code ? ",
+    options: [
+      {
+        id: "0",
+        options: "A",
+        answer: "Asia"
+      },
+      {
+        id: "1",
+        options: "B",
+        answer: "South Africa"
+      },
+      {
+        id: "2",
+        options: "C",
+        answer: "Australia"
+      },
+      {
+        id: "0",
+        options: "D",
+        answer: "Antarctica"
+      }
+    ],
+    correctAnswerIndex: 0
   }
 ];
 
@@ -144,11 +170,11 @@ export const Ten_questions = ({ navigation }) => {
     }
   }, [index]);
 
-  useEffect(() => {
-    if (!interval) {
-      setCounter(15);
-    }
-  }, [index]);
+  // useEffect(() => {
+  //   if (!interval) {
+  //     setCounter(15);
+  //   }
+  // }, [index]);
 
   return (
     <View style={styles.container}>
@@ -223,88 +249,65 @@ export const Ten_questions = ({ navigation }) => {
         </View>
 
         {/* CONTINUE */}
-        <View style={answerStatus === null ? null : {}}>
-          {answerStatus === null ? null : (
-            <Text
-              style={
-                answerStatus == null
-                  ? null
-                  : { fontSize: 17, textAlign: "center", fontWeight: "bold" }
-              }
-            >
-              {!!answerStatus ? "Correct Answer" : "Wrong Answer"}
-            </Text>
-          )}
 
-          {index + 1 >= questions.length ? (
-            <Pressable
-              onPress={() =>
-                navigation.navigate("Results", {
-                  points: points,
-                  answers: answers
-                })
-              }
-              style={{
-                width: "100%",
-                height: 72,
-                backgroundColor: COLORS.BLACK,
-                borderWidth: 1,
-                borderRadius: 15,
-                alignItems: "center",
-                justifyContent: "space-around"
-              }}
-            >
-              <Text style={{ color: "white" }}>Done</Text>
-            </Pressable>
-          ) : answerStatus === null ? null : (
-            <Pressable
-              onPress={() => setIndex(index + 1)}
-              style={{
-                width: "100%",
-                height: 72,
-                backgroundColor: COLORS.BLACK,
-                borderWidth: 1,
-                borderRadius: 15,
-                alignItems: "center",
-                justifyContent: "space-around"
-              }}
-            >
-              <Text style={{ color: "white" }}>Continue</Text>
-            </Pressable>
-          )}
-        </View>
-
-        {/* <Pressable
-          style={{
-            width: "100%",
-            height: 72,
-            backgroundColor: COLORS.BLACK,
-            borderWidth: 1,
-            borderRadius: 15,
-            alignItems: "center",
-            justifyContent: "space-around"
-          }}
-        >
-          <Text
-            style={{ fontSize: 16, color: COLORS.WHITE, fontWeight: "bold" }}
+        {index + 1 >= questions.length ? (
+          <Pressable
+            onPress={() =>
+              navigation.navigate("Results", {
+                points: points,
+                answers: answers
+              })
+            }
+            style={{
+              width: "100%",
+              height: 72,
+              backgroundColor: COLORS.BLACK,
+              borderWidth: 1,
+              borderRadius: 15,
+              alignItems: "center",
+              justifyContent: "space-around"
+            }}
           >
-            Continue
-          </Text>
-        </Pressable> */}
+            <Text style={{ color: "white" }}>Done</Text>
+          </Pressable>
+        ) : answerStatus === null ? (
+          <Pressable
+            onPress={() => {
+              setIndex(index + 1);
+              //setCounter(20);
+            }}
+            style={{
+              width: "100%",
+              height: 72,
+              backgroundColor: COLORS.BLACK,
+              borderWidth: 1,
+              borderRadius: 15,
+              alignItems: "center",
+              justifyContent: "space-around"
+            }}
+          >
+            <Text style={{ color: "white" }}>Continue</Text>
+          </Pressable>
+        ) : (
+          <Pressable
+            onPress={() => {
+              setIndex(index + 1);
+              //setCounter(20);
+            }}
+            style={{
+              width: "100%",
+              height: 72,
+              backgroundColor: COLORS.BLACK,
+              borderWidth: 1,
+              borderRadius: 15,
+              alignItems: "center",
+              justifyContent: "space-around"
+            }}
+          >
+            <Text style={{ color: "white" }}>Continue</Text>
+          </Pressable>
+        )}
       </ScrollView>
     </View>
   );
 };
-
-// const styles = StyleSheet.create({
-//   container: {},
-//   question: {
-//     width: "100%",
-//     minHeight: 200,
-//     backgroundColor: COLORS.YELLOW,
-//     borderRadius: 15,
-//     //alignItems: "center",
-//     justifyContent: "space-around",
-//     paddingHorizontal: 10
-//   }
-// });
