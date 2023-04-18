@@ -1,10 +1,20 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeAppTC } from "../store/initial-reducer";
 
 const StudyScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  //const aaa = useSelector((state) => state.app.allQuestions);
+  //const bbb = aaa.sort(() => Math.random() - 0.5);
+  //console.log(aaa, "here");
+
+  useEffect(() => {
+    dispatch(initializeAppTC());
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <OptionsButton

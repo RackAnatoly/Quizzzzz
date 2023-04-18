@@ -12,6 +12,8 @@ import {
 import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
 import { styles } from "./styles";
+import { useSelector } from "react-redux";
+import { AppRootStateType } from "../store/store";
 
 const questions = [
   {
@@ -94,8 +96,14 @@ const questions = [
   }
 ];
 
-export const Ten_questions = ({ navigation }) => {
-  const data = questions;
+export const Ten_questions = ({ navigation, route }) => {
+  //const bbb = route.params.aaa;
+  //или слайс с параментами от и до в рандомном порядке, или промежуточный экран чтобы обновлял предыдущий
+  const aaa = useSelector((state) => state.app.allQuestions);
+  //const shuffledArray = aaa.sort(() => Math.random() - 0.5);
+  //console.log(bbb.length, "sdsds");
+
+  const data = aaa;
   const totalQuestions = data.length;
   // points
   const [points, setPoints] = useState(0);
@@ -179,7 +187,9 @@ export const Ten_questions = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.menuBarContainer}>
-        <Text>Quit</Text>
+        <Pressable onPress={() => navigation.popToTop()}>
+          <Text>Quit</Text>
+        </Pressable>
         <Text>{counter}</Text>
         <Text>
           {index}/{totalQuestions}
