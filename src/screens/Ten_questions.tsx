@@ -93,6 +93,32 @@ const questions = [
       }
     ],
     correctAnswerIndex: 0
+  },
+  {
+    question: "Which code ? ",
+    options: [
+      {
+        id: "0",
+        options: "A",
+        answer: "Asia"
+      },
+      {
+        id: "1",
+        options: "B",
+        answer: "South Africa"
+      },
+      {
+        id: "2",
+        options: "C",
+        answer: "Australia"
+      },
+      {
+        id: "0",
+        options: "D",
+        answer: "Antarctica"
+      }
+    ],
+    correctAnswerIndex: 0
   }
 ];
 
@@ -260,7 +286,7 @@ export const Ten_questions = ({ navigation, route }) => {
 
         {/* CONTINUE */}
 
-        {index + 1 >= questions.length ? (
+        {index + 1 >= data.length ? (
           <Pressable
             onPress={() =>
               navigation.navigate("Results", {

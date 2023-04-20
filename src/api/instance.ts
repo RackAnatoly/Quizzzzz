@@ -8,7 +8,7 @@ export const quizAPI = {
   getFormatedQuestions() {
     const promise = instance.post<any>("formatted-questions", {
       app_id: 1,
-      qty: 1000,
+      qty: 2,
       category_id: 3
     });
     return promise;
