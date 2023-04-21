@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   menuBarContainer: {
     flexDirection: "row",
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: COLORS.YELLOW,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
     padding: 10
   },
   question: {
@@ -56,18 +56,18 @@ export const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   floating: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     padding: 16,
-    backgroundColor: '#eee',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 10, // Ensure the floating component is above the other content
-  },
+    backgroundColor: "#eee",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 10 // Ensure the floating component is above the other content
+  }
 });
