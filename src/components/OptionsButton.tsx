@@ -36,9 +36,7 @@ const OptionsButton = ({
       ) : (
         <Typography color={COLORS.WHITE}>{title}</Typography>
       )} */}
-      <Text style={{ fontSize: 20, color: COLORS.WHITE, fontWeight: "700" }}>
-        {title}
-      </Text>
+      <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
 };
@@ -47,15 +45,25 @@ export default OptionsButton;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: COLORS.BLACK,
+    backgroundColor: COLORS.WHITE,
     width: 320,
-    height: 79,
+    height: 60,
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10
+    marginVertical: 10,
+    //borderWidth: 1,
+    shadowOffset: {
+      width: 1,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
-  mainPressed: {
-    backgroundColor: "red"
+  title: {
+    fontSize: 20,
+    color: COLORS.BLACK,
+    fontWeight: "500"
   }
 });
