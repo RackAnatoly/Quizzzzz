@@ -10,9 +10,9 @@ import { Ten_questions } from "./src/screens/Ten_questions";
 import { Results } from "./src/screens/Results";
 import { Settings } from "./src/screens/Settings";
 import { Stats } from "./src/screens/Stats";
-import { SafeAreaView } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./src/store/store";
+import ExamDate from "./src/screens/Settings/ExamDate";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -26,6 +26,7 @@ export default function App() {
           <Stack.Screen name="10_questions" component={Ten_questions} />
           <Stack.Screen name="Results" component={Results} />
           <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="settings.exam-date" component={ExamDate} />
           <Stack.Screen name="Stats" component={Stats} />
         </Stack.Navigator>
       </NavigationContainer>
