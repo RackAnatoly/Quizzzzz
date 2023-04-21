@@ -124,6 +124,8 @@ const questions = [
 
 export const Ten_questions = ({ navigation, route }) => {
   //const bbb = route.params.aaa;
+  //console.log(bbb);
+
   //или слайс с параментами от и до в рандомном порядке, или промежуточный экран чтобы обновлял предыдущий
   const aaa = useSelector((state) => state.app.allQuestions);
   //const shuffledArray = aaa.sort(() => Math.random() - 0.5);
@@ -147,7 +149,7 @@ export const Ten_questions = ({ navigation, route }) => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
   // Counter
-  const [counter, setCounter] = useState(15);
+  const [counter, setCounter] = useState(150);
 
   // interval
   let interval = null;
@@ -225,9 +227,22 @@ export const Ten_questions = ({ navigation, route }) => {
 
       {/* Progress Bar */}
       <View style={styles.progressBarContainer}>
-        <Text
+        <View
           style={[styles.progressStatus, { width: `${progressPercentage}%` }]}
-        />
+        >
+          <View
+            style={{
+              width: 8,
+              height: 8,
+              backgroundColor: COLORS.BLACK,
+              position: "absolute",
+              top: "50%",
+              right: -5,
+              borderRadius: 4,
+              transform: [{ translateY: -4 }]
+            }}
+          />
+        </View>
       </View>
       <ScrollView>
         {/* question */}
@@ -250,9 +265,10 @@ export const Ten_questions = ({ navigation, route }) => {
                         height: 72,
                         alignItems: "center",
                         justifyContent: "center",
-                        marginVertical: 10,
-                        backgroundColor: COLORS.LIGHT_GREEN,
-                        borderRadius: 15
+                        borderColor: COLORS.LIGHT_GREEN,
+                        borderRadius: 15,
+                        borderWidth: 3,
+                        padding: 10
                       }
                     : selectedAnswerIndex != null &&
                       selectedAnswerIndex === index
@@ -262,8 +278,10 @@ export const Ten_questions = ({ navigation, route }) => {
                         alignItems: "center",
                         justifyContent: "center",
                         marginVertical: 10,
-                        backgroundColor: COLORS.PINK,
-                        borderRadius: 15
+                        borderWidth: 3,
+                        borderColor: COLORS.PINK,
+                        borderRadius: 15,
+                        padding: 15
                       }
                     : {
                         height: 72,
@@ -272,7 +290,8 @@ export const Ten_questions = ({ navigation, route }) => {
                         borderWidth: 1,
                         borderColor: COLORS.YELLOW,
                         marginVertical: 10,
-                        borderRadius: 15
+                        borderRadius: 15,
+                        padding: 10
                       }
                 }
               >

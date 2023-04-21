@@ -15,6 +15,7 @@ const StudyScreen = ({ navigation }) => {
   useEffect(() => {
     dispatch(initializeAppTC());
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ padding: 20 }}>
