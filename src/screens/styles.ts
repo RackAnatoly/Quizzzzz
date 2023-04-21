@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   menuBarContainer: {
     flexDirection: "row",
@@ -52,5 +52,21 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 10,
     borderRadius: 15
-  }
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  floating: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+    backgroundColor: '#eee',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10, // Ensure the floating component is above the other content
+  },
 });
