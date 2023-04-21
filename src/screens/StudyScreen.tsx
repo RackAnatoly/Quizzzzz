@@ -34,12 +34,16 @@ const StudyScreen = ({ navigation }) => {
           title="Quick 10 Quiz"
           onPress={() => navigation.navigate("10_questions")}
         />
-        <OptionsButton optionButtonType="main" title="Timed Quiz" />
+        <OptionsButton
+          optionButtonType="main"
+          title="Timed Quiz"
+          onPress={() => navigation.navigate("Timed Quizzes")}
+        />
         <OptionsButton optionButtonType="main" title="Missed Questions Quiz" />
         <OptionsButton optionButtonType="main" title="Quiz by Subject" />
         <OptionsButton optionButtonType="main" title="Mock Exam" />
       </ScrollView>
-      <FloatingMenu/>
+      <FloatingMenu />
     </SafeAreaView>
   );
 };

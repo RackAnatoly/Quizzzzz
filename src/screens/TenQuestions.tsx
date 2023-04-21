@@ -14,6 +14,7 @@ import { COLORS } from "../components/colors";
 import { styles } from "./styles";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "../store/store";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const questions = [
   {
@@ -122,7 +123,7 @@ const questions = [
   }
 ];
 
-export const Ten_questions = ({ navigation, route }) => {
+export const TenQuestions = ({ navigation, route }) => {
   //const bbb = route.params.aaa;
   //console.log(bbb);
 
@@ -130,8 +131,11 @@ export const Ten_questions = ({ navigation, route }) => {
   const aaa = useSelector((state) => state.app.allQuestions);
   //const shuffledArray = aaa.sort(() => Math.random() - 0.5);
   //console.log(bbb.length, "sdsds");
+  console.log(aaa[0]);
 
   const data = aaa;
+  const [isExplanationShown, setIsExplanationShown] = useState(false);
+  const [explanation, setExplanation] = useState(false);
   const totalQuestions = data.length;
   // points
   const [points, setPoints] = useState(0);
@@ -149,7 +153,7 @@ export const Ten_questions = ({ navigation, route }) => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
   // Counter
-  const [counter, setCounter] = useState(150);
+  const [counter, setCounter] = useState(565);
 
   // interval
   let interval = null;
@@ -183,8 +187,12 @@ export const Ten_questions = ({ navigation, route }) => {
         setCounter((state) => state - 1);
       }
       if (counter === 0) {
-        setIndex(index + 1);
-        setCounter(15);
+        // setIndex(index + 1);
+        // setCounter(15);
+        navigation.navigate("Results", {
+          answers: answers,
+          points: points
+        });
       }
     };
 
@@ -211,14 +219,37 @@ export const Ten_questions = ({ navigation, route }) => {
   //     setCounter(15);
   //   }
   // }, [index]);
+  function formatTime(timeInSeconds) {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
 
+    // добавляем нули перед однозначными числами
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = seconds.toString().padStart(2, "0");
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.menuBarContainer}>
         <Pressable onPress={() => navigation.popToTop()}>
           <Text>Quit</Text>
         </Pressable>
-        <Text>{counter}</Text>
+        <View
+          style={{
+            width: 80,
+            height: 24,
+            backgroundColor: COLORS.GREY,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10
+          }}
+        >
+          <Text style={{ color: counter >= 60 ? COLORS.BLACK : COLORS.RED }}>
+            {formatTime(counter)}
+          </Text>
+        </View>
+
         <Text>
           {index}/{totalQuestions}
         </Text>
@@ -248,45 +279,78 @@ export const Ten_questions = ({ navigation, route }) => {
         {/* question */}
         <View style={styles.questionContainer}>
           <Text style={styles.question}>{currentQuestion?.question}</Text>
+          {explanation && (
+            <Pressable
+              onPress={() => setIsExplanationShown(!isExplanationShown)}
+            >
+              <View
+                style={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  flexDirection: "column"
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    padding: 20,
+                    color: COLORS.LIGHT_GREEN
+                  }}
+                >
+                  {isExplanationShown ? "Hide Explanation" : "Show explanation"}
+                </Text>
+                {isExplanationShown && (
+                  <View style={{ justifyContent: "space-around" }}>
+                    <Text>{currentQuestion?.explanation}</Text>
+                  </View>
+                )}
+              </View>
+            </Pressable>
+          )}
         </View>
         {/* Answers */}
         <View style={{ marginTop: 10 }}>
           <View>
             {currentQuestion?.options.map((item, index) => (
               <Pressable
-                onPress={() =>
-                  selectedAnswerIndex === null && setSelectedAnswerIndex(index)
-                }
+                onPress={() => {
+                  setExplanation(true);
+                  selectedAnswerIndex === null && setSelectedAnswerIndex(index);
+                }}
                 style={
                   selectedAnswerIndex === index &&
                   index === currentQuestion.correctAnswerIndex
                     ? {
                         // correct answer
                         height: 72,
+                        flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "center",
+                        //justifyContent: "space-around",
                         borderColor: COLORS.LIGHT_GREEN,
                         borderRadius: 15,
                         borderWidth: 3,
-                        padding: 10
+                        padding: 10,
+                        marginVertical: 10
                       }
                     : selectedAnswerIndex != null &&
                       selectedAnswerIndex === index
                     ? {
                         // WRONG ANSWER
                         height: 72,
+                        flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "center",
+                        //justifyContent: "space-around",
                         marginVertical: 10,
                         borderWidth: 3,
                         borderColor: COLORS.PINK,
                         borderRadius: 15,
-                        padding: 15
+                        padding: 10
                       }
                     : {
                         height: 72,
+                        flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "center",
+                        //justifyContent: "space-around",
                         borderWidth: 1,
                         borderColor: COLORS.YELLOW,
                         marginVertical: 10,
@@ -295,6 +359,69 @@ export const Ten_questions = ({ navigation, route }) => {
                       }
                 }
               >
+                {selectedAnswerIndex === index &&
+                index === currentQuestion.correctAnswerIndex ? (
+                  <View
+                    style={{
+                      backgroundColor: COLORS.LIGHT_GREEN,
+                      width: 44,
+                      height: 44,
+                      borderRadius: 22,
+                      marginRight: 10,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: COLORS.BLACK
+                      }}
+                    >
+                      {currentQuestion?.options[index].option}
+                    </Text>
+                  </View>
+                ) : selectedAnswerIndex != null &&
+                  selectedAnswerIndex === index ? (
+                  <View
+                    style={{
+                      backgroundColor: COLORS.PINK,
+                      width: 44,
+                      height: 44,
+                      borderRadius: 22,
+                      marginRight: 10,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: COLORS.BLACK
+                      }}
+                    >
+                      {currentQuestion?.options[index].option}
+                    </Text>
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      backgroundColor: COLORS.YELLOW,
+                      width: 44,
+                      height: 44,
+                      borderRadius: 22,
+                      marginRight: 10,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: COLORS.BLACK
+                      }}
+                    >
+                      {currentQuestion?.options[index].option}
+                    </Text>
+                  </View>
+                )}
                 <Text style={{ fontSize: 16, fontWeight: "500" }}>
                   {item.answer}
                 </Text>
@@ -307,12 +434,12 @@ export const Ten_questions = ({ navigation, route }) => {
 
         {index + 1 >= data.length ? (
           <Pressable
-            onPress={() =>
+            onPress={() => {
               navigation.navigate("Results", {
                 points: points,
                 answers: answers
-              })
-            }
+              });
+            }}
             style={{
               width: "100%",
               height: 72,
@@ -329,6 +456,7 @@ export const Ten_questions = ({ navigation, route }) => {
           <Pressable
             onPress={() => {
               setIndex(index + 1);
+              setExplanation(false);
               //setCounter(20);
             }}
             style={{
@@ -347,6 +475,7 @@ export const Ten_questions = ({ navigation, route }) => {
           <Pressable
             onPress={() => {
               setIndex(index + 1);
+              setExplanation(false);
               //setCounter(20);
             }}
             style={{
