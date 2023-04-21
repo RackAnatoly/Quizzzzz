@@ -9,20 +9,24 @@ import { InitialScreen } from "./src/screens/InitialScreen";
 import { Ten_questions } from "./src/screens/Ten_questions";
 import { Results } from "./src/screens/Results";
 import { SafeAreaView } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "./src/store/store";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     //<SafeAreaView>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Initial" component={InitialScreen} />
-        <Stack.Screen name="Study" component={StudyScreen} />
-        <Stack.Screen name="DayQuestion" component={DayQuestion} />
-        <Stack.Screen name="10_questions" component={Ten_questions} />
-        <Stack.Screen name="Results" component={Results} />
-      </Stack.Navigator>
-    </NavigationContainer>
-    //</SafeAreaView>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Initial" component={InitialScreen} />
+          <Stack.Screen name="Study" component={StudyScreen} />
+          <Stack.Screen name="DayQuestion" component={DayQuestion} />
+          <Stack.Screen name="10_questions" component={Ten_questions} />
+          <Stack.Screen name="Results" component={Results} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/* </SafeAreaView> */}
+    </Provider>
   );
 }

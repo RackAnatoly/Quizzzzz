@@ -14,32 +14,33 @@ export const styles = StyleSheet.create({
     padding: 10
   },
   progressBarContainer: {
-    backgroundColor: COLORS.YELLOW,
+    backgroundColor: COLORS.GREY,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    height: 10,
+    height: 4,
     borderRadius: 20,
     justifyContent: "center",
     marginBottom: 20
   },
   progressStatus: {
-    backgroundColor: COLORS.BLACK,
-    borderRadius: 12,
+    backgroundColor: COLORS.YELLOW,
     position: "absolute",
     left: 0,
-    height: 10,
+    height: 4,
     right: 0,
-    marginTop: 20
+    marginTop: 20,
+    borderRadius: 12
   },
   questionContainer: {
     width: "100%",
     minHeight: 100,
-    backgroundColor: COLORS.YELLOW,
     borderRadius: 15,
+    borderWidth: 2,
+    borderColor: COLORS.YELLOW,
     alignItems: "center",
     justifyContent: "space-around",
-    paddingHorizontal: 10
+    padding: 10
   },
   question: {
     fontSize: 24,
