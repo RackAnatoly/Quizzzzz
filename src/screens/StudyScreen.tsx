@@ -5,6 +5,7 @@ import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeAppTC } from "../store/initial-reducer";
+import FloatingMenu from "../components/FloatingMenu";
 
 const StudyScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const StudyScreen = ({ navigation }) => {
         <OptionsButton optionButtonType="main" title="Quiz by Subject" />
         <OptionsButton optionButtonType="main" title="Mock Exam" />
       </ScrollView>
+      <FloatingMenu/>
     </SafeAreaView>
   );
 };
