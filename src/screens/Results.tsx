@@ -7,13 +7,10 @@ import { useRoute } from "@react-navigation/native";
 
 export const Results = () => {
   const route = useRoute();
-  console.log(route.params.answers);
-  //найти значения объектов === true
-  //поделить общее число true на все вопросы
 
   return (
     <SafeAreaView>
-      <Text>{route.params.answers.length}</Text>
+      <Text>Boom!</Text>
     </SafeAreaView>
   );
 };

@@ -1,12 +1,10 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import OptionsButton from "./src/components/OptionsButton";
-import { COLORS } from "./src/components/colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StudyScreen from "./src/screens/StudyScreen";
 import DayQuestion from "./src/screens/DayQuestion";
 import { InitialScreen } from "./src/screens/InitialScreen";
-import { TimedQuizs, TimedQuizzes } from "./src/screens/TimedQuiz";
+import {TimedQuiz} from "./src/screens/TimedQuiz";
 import { Results } from "./src/screens/Results";
 import { Settings } from "./src/screens/Settings";
 import { Stats } from "./src/screens/Stats";
@@ -25,7 +23,7 @@ export default function App() {
           <Stack.Screen name="Study" component={StudyScreen} />
           <Stack.Screen name="DayQuestion" component={DayQuestion} />
           <Stack.Screen name="10_questions" component={TenQuestions} />
-          <Stack.Screen name="Timed Quizzes" component={TimedQuizzes} />
+          <Stack.Screen name="TimedQuiz" component={TimedQuiz} />
           <Stack.Screen name="Results" component={Results} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="settings.exam-date" component={ExamDate} />
