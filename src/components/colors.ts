@@ -1,4 +1,5 @@
 export const COLORS = {
+  PRIMARY: "#CCB5EA",
   PUPRLE: "#CCB5EA",
   GREY: "#EAEADA",
   WHITE: "#FFFFFF",
@@ -6,5 +7,7 @@ export const COLORS = {
   LIGHT_GREEN: "#9BC869",
   PINK: "#FB8D76",
   BLACK: "#2B2B28",
-  RED: "#FF0000"
+  RED: "#FF0000",
+  LIGHT_GRAY: "#d2d2d2",
+  GREEN: "#06e00a",
 };

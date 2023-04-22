@@ -2,28 +2,28 @@ import {Dispatch, AnyAction} from "redux";
 import {ThunkAction} from "redux-thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {quizAPI} from "../api/instance";
+import {RootState} from "./store";
 
-type AppThunk<ReturnType = void> = ThunkAction<ReturnType, InitialStateType, unknown, AnyAction>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
 const initialState: InitialStateType = {
     questions: [],
     categories: [],
     examDate: new Date().toISOString(),
 };
-
 export const appReducer = (
-    state: InitialStateType = initialState,
-    action: ActionsType
+  state: InitialStateType = initialState,
+  action: ActionsType
 ): InitialStateType => {
     switch (action.type) {
-        case 'APP/SET-QUESTIONS':
-            return {...state, questions: action.questions};
-        case 'APP/SET-CATEGORIES':
-            return {...state, categories: action.categories};
-        case 'APP/SET-EXAM-DATE':
-            return {...state, examDate: action.date};
+        case "APP/SET-QUESTIONS":
+            return { ...state, questions: action.questions };
+        case "APP/SET-CATEGORIES":
+            return { ...state, categories: action.categories };
+        case "APP/SET-EXAM-DATE":
+            return { ...state, examDate: action.date };
         default:
-            return {...state};
+            return { ...state };
     }
 };
 
@@ -47,7 +47,7 @@ export const setExamDate = (date: string): AppThunk => async (dispatch) => {
 };
 
 const setExamDateAC = (date: string) =>
-    ({type: "APP/SET-EXAM-DATE", date} as const);
+  ({type: "APP/SET-EXAM-DATE", date} as const);
 
 export const initializeAppTC = (): AppThunk => async (dispatch) => {
     const response = await quizAPI.getAppData();
@@ -55,4 +55,7 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
     dispatch(setCategoriesAC(response.data.data.categories));
 };
 
-type ActionsType = ReturnType<typeof setQuestionsAC> | ReturnType<typeof setCategoriesAC> | ReturnType<typeof setExamDateAC>;
+type ActionsType =
+  | ReturnType<typeof setQuestionsAC>
+  | ReturnType<typeof setCategoriesAC>
+  | ReturnType<typeof setExamDateAC>;

@@ -7,21 +7,23 @@ import {
 } from "react-native";
 import {COLORS} from "../components/colors";
 import {styles} from "./styles";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectQuestions} from "../store/selectors";
 import _ from 'lodash';
 import {Question, QuestionModel} from "../models/Question";
 import {QuestionComponent} from "../components/QuestionComponent";
+import {resetLastQuizAnswersAC} from "../store/quizAnswers-reducer";
 
 export const TenQuestions = ({navigation, route}) => {
 
   const questions = useSelector(selectQuestions);
-
+  const dispatch = useDispatch();
   const [sampledQuestions, setSampledQuestions] = useState<QuestionModel[]>([]);
 
   useEffect(() => {
     const newSampledQuestions = _.sampleSize(questions, 10).map((question: Question) => new QuestionModel(question));
     setSampledQuestions(newSampledQuestions);
+    dispatch(resetLastQuizAnswersAC());
   }, [questions]);
 
   const [isExplanationShown, setIsExplanationShown] = useState(false);
