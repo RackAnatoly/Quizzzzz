@@ -17,21 +17,6 @@ import CountdownClock from "../components/CountdownClock";
 import CustomAlert from "../components/CustomAlert";
 
 export const TimedQuiz = ({navigation, route}) => {
-  Alert.alert(
-    'Time is up!',
-    'Please navigate to another screen.',
-    [
-      {
-        text: 'Go to another screen',
-        onPress: () => {
-          navigation.navigate('AnotherScreen');
-          //setShowTimeUpAlert(false);
-        },
-      },
-    ],
-    { cancelable: false }
-  );
-
   const questions = useSelector(selectQuestions);
 
   const [sampledQuestions, setSampledQuestions] = useState<QuestionModel[]>([]);
@@ -74,7 +59,7 @@ export const TimedQuiz = ({navigation, route}) => {
           <CustomAlert
             visible={showTimeUpAlert}
             title="Time is up!"
-            message="Please navigate to another screen."
+            message="you fucked up!"
             buttonText="Continue"
             onPress={() => {
               navigation.navigate('Results');

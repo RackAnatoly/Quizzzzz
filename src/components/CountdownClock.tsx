@@ -8,14 +8,15 @@ interface CountdownClockProps {
 
 const CountdownClock: React.FC<CountdownClockProps> = ({ minutes, onTimeUp }) => {
   const [timeRemaining, setTimeRemaining] = useState(minutes * 60);
+  const [timeUp, setTimeUp] = useState(false);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeRemaining((prevTime) => {
         if (prevTime === 0) {
           clearInterval(interval);
-          console.log('onTimeUp');
-          onTimeUp();
+          setTimeUp(true);
           return 0;
         }
         return prevTime - 1;
@@ -24,6 +25,12 @@ const CountdownClock: React.FC<CountdownClockProps> = ({ minutes, onTimeUp }) =>
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (timeUp) {
+      onTimeUp();
+    }
+  }, [timeUp, onTimeUp]);
 
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
