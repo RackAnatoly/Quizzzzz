@@ -7,7 +7,7 @@ type AppThunk<ReturnType = void> = ThunkAction<ReturnType, InitialStateType, unk
 
 const initialState: InitialStateType = {
     allQuestions: [],
-    examDate: null,
+    examDate: new Date().toISOString(),
 };
 
 export const appReducer = (
