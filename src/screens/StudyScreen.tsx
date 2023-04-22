@@ -6,16 +6,10 @@ import { COLORS } from "../components/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeAppTC } from "../store/initial-reducer";
 import FloatingMenu from "../components/FloatingMenu";
+import {selectCategories, selectQuestions} from "../store/selectors";
 
 const StudyScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  //const aaa = useSelector((state) => state.app.allQuestions);
-  //const bbb = aaa.sort(() => Math.random() - 0.5);
-  //console.log(aaa, "here");
-
-  useEffect(() => {
-    dispatch(initializeAppTC());
-  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,7 +31,7 @@ const StudyScreen = ({ navigation }) => {
         <OptionsButton
           optionButtonType="main"
           title="Timed Quiz"
-          onPress={() => navigation.navigate("Timed Quizzes")}
+          onPress={() => navigation.navigate("TimedQuiz")}
         />
         <OptionsButton optionButtonType="main" title="Missed Questions Quiz" />
         <OptionsButton optionButtonType="main" title="Quiz by Subject" />

@@ -6,7 +6,8 @@ import {quizAPI} from "../api/instance";
 type AppThunk<ReturnType = void> = ThunkAction<ReturnType, InitialStateType, unknown, AnyAction>;
 
 const initialState: InitialStateType = {
-    allQuestions: [],
+    questions: [],
+    categories: [],
     examDate: new Date().toISOString(),
 };
 
@@ -15,8 +16,10 @@ export const appReducer = (
     action: ActionsType
 ): InitialStateType => {
     switch (action.type) {
-        case 'APP/SET-ALL-QUESTIONS':
-            return {...state, allQuestions: action.questions};
+        case 'APP/SET-QUESTIONS':
+            return {...state, questions: action.questions};
+        case 'APP/SET-CATEGORIES':
+            return {...state, categories: action.categories};
         case 'APP/SET-EXAM-DATE':
             return {...state, examDate: action.date};
         default:
@@ -25,12 +28,14 @@ export const appReducer = (
 };
 
 export type InitialStateType = {
-    allQuestions: any[];
+    questions: any[];
+    categories: any[];
     examDate: string | null;
 };
 
-export const setAppInitializedAC = (questions: any) =>
-    ({type: "APP/SET-ALL-QUESTIONS", questions} as const);
+export const setQuestionsAC = (questions: any) => ({type: "APP/SET-QUESTIONS", questions} as const);
+
+export const setCategoriesAC = (categories: any) => ({type: "APP/SET-CATEGORIES", categories} as const);
 
 export const setExamDate = (date: string): AppThunk => async (dispatch) => {
     try {
@@ -45,13 +50,9 @@ const setExamDateAC = (date: string) =>
     ({type: "APP/SET-EXAM-DATE", date} as const);
 
 export const initializeAppTC = (): AppThunk => async (dispatch) => {
-    quizAPI.getFormatedQuestions().then((res) => {
-        if (res.data) {
-            dispatch(setAppInitializedAC(res.data.data));
-        } else {
-            console.log("error");
-        }
-    });
+    const response = await quizAPI.getAppData();
+    dispatch(setQuestionsAC(response.data.data.questions));
+    dispatch(setCategoriesAC(response.data.data.categories));
 };
 
-type ActionsType = ReturnType<typeof setAppInitializedAC> | ReturnType<typeof setExamDateAC>;
+type ActionsType = ReturnType<typeof setQuestionsAC> | ReturnType<typeof setCategoriesAC> | ReturnType<typeof setExamDateAC>;

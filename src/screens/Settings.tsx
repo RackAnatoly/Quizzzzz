@@ -9,6 +9,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../components/colors';
 import FloatingMenu from '../components/FloatingMenu';
+import {useSelector} from "react-redux";
+import {selectCategories, selectQuestions} from "../store/selectors";
 
 export const Settings = ({ navigation }) => {
   const nav = useNavigation();
@@ -17,6 +19,12 @@ export const Settings = ({ navigation }) => {
     // @ts-ignore
     nav.navigate(routeName);
   };
+
+  //TMP
+  const questions = useSelector(selectQuestions);
+  const categories = useSelector(selectCategories);
+  console.log('q', questions);
+  console.log('c', categories);
 
   return (
       <SafeAreaView style={styles.container}>

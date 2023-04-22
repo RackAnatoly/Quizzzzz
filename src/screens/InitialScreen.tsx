@@ -1,17 +1,25 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useEffect} from "react";
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   View,
   Image,
-  Pressable
 } from "react-native";
 import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
+import {initializeAppTC} from "../store/initial-reducer";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../store/store";
 
 export const InitialScreen = ({ navigation }) => {
+
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(initializeAppTC());
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={require("./../assets/initial_logo.png")} />

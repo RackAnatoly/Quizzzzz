@@ -6,11 +6,15 @@ const instance = axios.create({
 
 export const quizAPI = {
   getFormatedQuestions() {
-    const promise = instance.post<any>("formatted-questions", {
+    return instance.post<any>("formatted-questions", {
       app_id: 1,
       qty: 1000,
       category_id: 3
     });
-    return promise;
+  },
+  getAppData() {
+    return instance.post<any>("get-app-data", {
+      app_id: 1,
+    });
   }
 };

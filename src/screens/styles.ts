@@ -69,5 +69,14 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 10 // Ensure the floating component is above the other content
-  }
+  },
+  doneButton: {
+    width: "100%",
+    height: 72,
+    backgroundColor: COLORS.BLACK,
+    borderWidth: 1,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "space-around"
+  },
 });
