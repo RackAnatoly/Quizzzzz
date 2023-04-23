@@ -22,11 +22,11 @@ export default function App() {
           <Stack.Screen name="Initial" component={InitialScreen} />
           <Stack.Screen name="Study" component={StudyScreen} />
           <Stack.Screen name="DayQuestion" component={DayQuestion} />
-          <Stack.Screen name="10_questions" component={TenQuestions} />
+          <Stack.Screen name="TenQuestions" component={TenQuestions} />
           <Stack.Screen name="TimedQuiz" component={TimedQuiz} />
           <Stack.Screen name="Results" component={Results} />
           <Stack.Screen name="Settings" component={Settings} />
-          <Stack.Screen name="settings.exam-date" component={ExamDate} />
+          <Stack.Screen name="Settings.ExamDate" component={ExamDate} />
           <Stack.Screen name="Stats" component={Stats} />
         </Stack.Navigator>
       </NavigationContainer>

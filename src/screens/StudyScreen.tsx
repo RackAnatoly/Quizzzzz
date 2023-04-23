@@ -26,7 +26,7 @@ const StudyScreen = ({ navigation }) => {
         <OptionsButton
           optionButtonType="main"
           title="Quick 10 Quiz"
-          onPress={() => navigation.navigate("10_questions")}
+          onPress={() => navigation.navigate("TenQuestions")}
         />
         <OptionsButton
           optionButtonType="main"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,34 +9,52 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from '../components/colors';
 import FloatingMenu from '../components/FloatingMenu';
-import {useSelector} from "react-redux";
-import {selectCategories, selectQuestions} from "../store/selectors";
+import CustomAlert from "../components/CustomAlert";
+import {
+  resetOverallQuizAnswersAC,
+  resetOverallQuizAnswersTC,
+  updateOverallQuizAnswersTC
+} from "../store/quizAnswers-reducer";
+import {useDispatch} from "react-redux";
 
 export const Settings = ({ navigation }) => {
   const nav = useNavigation();
+  const [showResetProgressAlert, setShowResetProgressAlert] = useState(false);
+  const dispatch = useDispatch();
 
   const handleNavigation = (routeName) => {
     // @ts-ignore
     nav.navigate(routeName);
   };
 
-  //TMP
-  const questions = useSelector(selectQuestions);
-  const categories = useSelector(selectCategories);
-  console.log('q', questions);
-  console.log('c', categories);
-
   return (
       <SafeAreaView style={styles.container}>
         <View style={{ paddingHorizontal: 10 }}>
           <Text>Settings Screen</Text>
         </View>
+        <CustomAlert
+          visible={showResetProgressAlert}
+          title="Reset Progress"
+          message="Are you sure you want to reset your progress?"
+          confirmText="Yes"
+          declineText="No"
+          onConfirm={() => {
+            // @ts-ignore
+            dispatch(resetOverallQuizAnswersTC());
+            setShowResetProgressAlert(false);
+          }}
+          onDecline={ () => {
+            setShowResetProgressAlert(false);
+          }}
+        />
         <View style={styles.menuContainer}>
-          <TouchableOpacity onPress={() => handleNavigation('settings.exam-date')}>
+          <TouchableOpacity onPress={() => handleNavigation('Settings.ExamDate')}>
             <Text style={styles.menuItem}>Exam Date</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleNavigation('Setting2')}>
-            <Text style={styles.menuItem}>Setting 2</Text>
+          <TouchableOpacity onPress={() => {
+            setShowResetProgressAlert(true);
+          }}>
+            <Text style={styles.menuItem}>Reset Progress</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handleNavigation('Setting3')}>
             <Text style={styles.menuItem}>Setting 3</Text>

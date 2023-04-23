@@ -10,11 +10,10 @@ import OptionsButton from "../components/OptionsButton";
 import { COLORS } from "../components/colors";
 import {initializeAppTC} from "../store/initial-reducer";
 import {useDispatch} from "react-redux";
-import {AppDispatch} from "../store/store";
 
 export const InitialScreen = ({ navigation }) => {
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   useEffect(() => {
     // @ts-ignore
     dispatch(initializeAppTC());

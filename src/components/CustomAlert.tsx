@@ -1,16 +1,41 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Modal} from 'react-native';
 
-const CustomAlert = ({ visible, title, message, buttonText, onPress }) => {
+type CustomAlertProps = {
+  visible: any;
+  title: any;
+  message: any;
+  confirmText: any;
+  onConfirm: any;
+  declineText?: any
+  onDecline?: any;
+};
+
+const CustomAlert: React.FC<CustomAlertProps> = ({
+                                                   visible,
+                                                   title,
+                                                   message,
+                                                   confirmText,
+                                                   declineText,
+                                                   onConfirm,
+                                                   onDecline,
+                                                 }) => {
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
       <View style={styles.overlay}>
         <View style={styles.alertContainer}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.message}>{message}</Text>
-          <TouchableOpacity style={styles.button} onPress={onPress}>
-            <Text style={styles.buttonText}>{buttonText}</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={[styles.button, styles.confirmButton]} onPress={onConfirm}>
+              <Text style={styles.buttonText}>{confirmText}</Text>
+            </TouchableOpacity>
+            {declineText && (
+              <TouchableOpacity style={[styles.button, styles.declineButton]} onPress={onDecline}>
+                <Text style={styles.buttonText}>{declineText}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     </Modal>
@@ -39,11 +64,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   button: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
+  },
+  confirmButton: {
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
+  declineButton: {
+    backgroundColor: 'gray',
+    borderRadius: 5,
   },
   buttonText: {
     color: 'white',

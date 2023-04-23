@@ -79,4 +79,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around"
   },
+  tabView: {
+    width: "100%",
+    height: "100%",
+  },
 });

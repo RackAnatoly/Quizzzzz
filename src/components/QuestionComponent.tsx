@@ -3,7 +3,7 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import {COLORS} from "./colors";
 import {Question} from "../models/Question";
 import {styles} from "../screens/styles";
-import {updateLastQuizAnswers, updateOverallQuizAnswers} from "../store/quizAnswers-reducer";
+import {updateLastQuizAnswersTC, updateOverallQuizAnswersTC} from "../store/quizAnswers-reducer";
 import {useDispatch} from "react-redux";
 
 interface QuestionWithOptionsProps {
@@ -83,11 +83,12 @@ export const QuestionComponent: React.FC<QuestionWithOptionsProps> = ({
             if (selectedOption === null) {
               setSelectedOption(index);
               currentQuestion.setSelectedOption(item);
+              const formattedDate = (new Date()).toISOString().split('T')[0];
               const isCorrect = currentQuestion.isSelectedOptionCorrect();
               // @ts-ignore
-              dispatch(updateLastQuizAnswers(currentQuestion.id, isCorrect));
+              dispatch(updateLastQuizAnswersTC(currentQuestion.id, isCorrect));
               // @ts-ignore
-              dispatch(updateOverallQuizAnswers(currentQuestion.id, isCorrect));
+              dispatch(updateOverallQuizAnswersTC(currentQuestion.id, isCorrect, formattedDate));
             }
           }}
           style={

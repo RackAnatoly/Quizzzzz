@@ -3,6 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {quizAPI} from "../api/instance";
 import {RootState} from "./store";
+import {initializeOverallQuizAnswersTC} from "./quizAnswers-reducer";
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
@@ -37,22 +38,40 @@ export const setQuestionsAC = (questions: any) => ({type: "APP/SET-QUESTIONS", q
 
 export const setCategoriesAC = (categories: any) => ({type: "APP/SET-CATEGORIES", categories} as const);
 
-export const setExamDate = (date: string): AppThunk => async (dispatch) => {
+export const setExamDateTC = (date: string): AppThunk => async (dispatch) => {
     try {
         await AsyncStorage.setItem("examDate", date);
         dispatch(setExamDateAC(date));
     } catch (error) {
-        console.error("Error saving exam date:", error);
+        console.error("Error saving exam datinitializeAppTCe:", error);
     }
 };
 
 const setExamDateAC = (date: string) =>
   ({type: "APP/SET-EXAM-DATE", date} as const);
 
+export const initializeExamDateTC = (): AppThunk => async (dispatch) => {
+    let storedDate;
+    try {
+        storedDate = await AsyncStorage.getItem("examDate");
+    } catch (error) {
+        console.error("Error getting exam date:", error);
+        return null;
+    }
+
+    console.log('initializeExamDate', storedDate)
+
+    if (storedDate) {
+        console.log('setExamDateAC', storedDate);
+        dispatch(setExamDateAC(storedDate));
+    }
+};
 export const initializeAppTC = (): AppThunk => async (dispatch) => {
     const response = await quizAPI.getAppData();
     dispatch(setQuestionsAC(response.data.data.questions));
     dispatch(setCategoriesAC(response.data.data.categories));
+    dispatch(initializeExamDateTC());
+    dispatch(initializeOverallQuizAnswersTC());
 };
 
 type ActionsType =

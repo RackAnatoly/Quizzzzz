@@ -21,7 +21,7 @@ export const TenQuestions = ({navigation, route}) => {
   const [sampledQuestions, setSampledQuestions] = useState<QuestionModel[]>([]);
 
   useEffect(() => {
-    const newSampledQuestions = _.sampleSize(questions, 10).map((question: Question) => new QuestionModel(question));
+    const newSampledQuestions = _.sampleSize(questions, 3).map((question: Question) => new QuestionModel(question));
     setSampledQuestions(newSampledQuestions);
     dispatch(resetLastQuizAnswersAC());
   }, [questions]);

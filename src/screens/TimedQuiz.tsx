@@ -60,8 +60,8 @@ export const TimedQuiz = ({navigation, route}) => {
             visible={showTimeUpAlert}
             title="Time is up!"
             message="you fucked up!"
-            buttonText="Continue"
-            onPress={() => {
+            confirmText="Continue"
+            onConfirm={() => {
               navigation.navigate('Results');
               setShowTimeUpAlert(false);
             }}
